@@ -12,9 +12,13 @@ public class Launcher {
             HttpServer myServer = HttpServer.create(new InetSocketAddress(Integer.parseInt(args[0])), 0);
             myServer.setExecutor(Executors.newFixedThreadPool(1));
             myServer.createContext("/ping", new CallHandler());
-            myServer.createContext("/api/game/start", new PostHandler());
+            myServer.createContext("/api/game/start", new PostHandler(Integer.parseInt(args[0])));
             myServer.start();
-        } catch (IOException e) {
+            if (args.length >= 2 ){
+                Communication comm = new Communication(Integer.parseInt(args[0]));
+                comm.POSTRequest(args[1]);
+            }
+        } catch (IOException | InterruptedException e) {
             System.out.println("Caught error : "+e.getMessage());
         }
     }
