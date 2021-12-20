@@ -10,7 +10,7 @@ public class CallHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) {
         try {
-            String body = "Server start successful";
+            String body = "OK";
             exchange.sendResponseHeaders(200, body.length());
             try (OutputStream os = exchange.getResponseBody()){
                 os.write(body.getBytes());
