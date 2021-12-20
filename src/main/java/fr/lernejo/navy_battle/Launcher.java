@@ -12,6 +12,7 @@ public class Launcher {
             HttpServer myServer = HttpServer.create(new InetSocketAddress(Integer.parseInt(args[0])), 0);
             myServer.setExecutor(Executors.newFixedThreadPool(1));
             myServer.createContext("/ping", new CallHandler());
+            myServer.createContext("/api/game/start", new PostHandler());
             myServer.start();
         } catch (IOException e) {
             System.out.println("Caught error : "+e.getMessage());
