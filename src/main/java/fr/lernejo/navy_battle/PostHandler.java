@@ -18,8 +18,8 @@ public class PostHandler implements HttpHandler {
         port = intern_port;
     }
 
-    public boolean schema_value(String schema) {
-        String default_schema = "{\n\"$schema\": \"http://json-schema.org/schema#\",\n\"type\": \"object\",\n\"properties\": {\n\"id\": {\n\"type\": \"string\"\n},\n\"url\": {\n\"type\": \"string\"\n},\n\"message\": {\n\"type\": \"string\"\n}\n},\n\"required\": [\n\"id\",\n\"url\",\n \"message\"\n]\n}";
+    public int schema_value(String schema) {
+        String default_schema = "{ \"$schema\": \"http://json-schema.org/schema#\", \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"string\" }, \"url\": { \"type\": \"string\" }, \"message\": { \"type\": \"string\" } }, \"required\": [ \"id\", \"url\", \"message\"]}\"}";
         JSONTokener token_schema = new JSONTokener(default_schema);
         JSONObject object_schema = new JSONObject(token_schema);
         JSONTokener token = new JSONTokener(schema);
@@ -27,10 +27,10 @@ public class PostHandler implements HttpHandler {
         Schema checker = SchemaLoader.load(object_schema);
         try {
             checker.validate(object);
-            return true;
+            return 1;
         } catch (ValidationException e) {
             System.out.println("Schema not validated : " + e.getMessage());
-            return false;
+            return 0;
         }
     }
 
@@ -40,7 +40,7 @@ public class PostHandler implements HttpHandler {
         String response = "empty";
         if (exchange.getRequestMethod().equals("POST")) {
             response = "{ \"id\":\"2aca7611-0ae4-49f3-bf63-75bef4769028\", \"url\":\"http://localhost:" + port + "\", \"message\":\"May the best code win\"}";
-            if (schema_value(request))
+            if (schema_value(request) == 1)
                 exchange.sendResponseHeaders(202, response.length());
             else
                 exchange.sendResponseHeaders(400, 1);
