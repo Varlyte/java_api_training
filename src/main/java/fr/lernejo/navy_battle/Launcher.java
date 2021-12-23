@@ -13,7 +13,6 @@ public class Launcher {
             myServer.setExecutor(Executors.newFixedThreadPool(1));
             myServer.createContext("/ping", new CallHandler());
             myServer.createContext("/api/game/start", new PostHandler(Integer.parseInt(args[0])));
-            myServer.createContext("/api/game/fire", new FireHandler());
             myServer.start();
             if (args.length >= 2 ){
                 Communication comm = new Communication(Integer.parseInt(args[0]));
