@@ -12,9 +12,9 @@ public class Communication {
     public Communication(int port){this.port=port;}
 
     public String POSTRequest(String adversaryUrl) throws IOException, InterruptedException{
-        HttpClient MU = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(adversaryUrl + "/api/game/start")).setHeader("Accept", "application/json").setHeader("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"id\":\"1\", \"url\":\"http://localhost:" + port + "\", \"message\":\"I will crush you\"}")).build();
-        HttpResponse<String> response = MU.send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(adversaryUrl + "/api/game/start")).setHeader("Accept","application/json").setHeader("Content-Type","application/json").POST(HttpRequest.BodyPublishers.ofString("{\"id\":\"1\", \"url\":\"http://localhost:" + port + "\", \"message\":\"I will crush you\"}")).build();
+        HttpResponse<String> respond = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return respond.body();
     }
 }
