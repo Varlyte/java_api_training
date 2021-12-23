@@ -19,7 +19,7 @@ public class PostHandler implements HttpHandler {
     }
 
     public int schema_value(String schema) {
-        String default_schema = "{ $schema: http://json-schema.org/schema#, \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"string\" }, \"url\": { \"type\": \"string\" }, \"message\": { \"type\": \"string\" } }, \"required\": [ \"id\", \"url\", \"message\"]\"}";
+        String default_schema = "{\n\"$schema\": \"http://json-schema.org/schema#\",\n\"type\": \"object\",\n\"properties\": {\n\"id\": {\n\"type\": \"string\"\n},\n\"url\": {\n\"type\": \"string\"\n},\n\"message\": {\n\"type\": \"string\"\n}\n},\n\"required\": [\n\"id\",\n\"url\",\n \"message\"\n]\n}";
         JSONTokener token_schema = new JSONTokener(default_schema);
         JSONObject object_schema = new JSONObject(token_schema);
         JSONTokener token = new JSONTokener(schema);
